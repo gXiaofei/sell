@@ -1,30 +1,58 @@
 /*
  * @Author: gXiaofei
  * @Date: 2018-10-12 23:23:07
- * @Last Modified by:   gXiaofei
- * @Last Modified time: 2018-10-12 23:23:07
+ * @Last Modified by: gXiaofei
+ * @Last Modified time: 2018-10-13 16:11:54
  */
 
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <Header/>
+    <div class="tab">
+      <div class="tab-item">
+        <router-link to="/goods">商品</router-link>
+      </div>
+      <div class="tab-item">
+        <router-link to="/ratings">评论</router-link>
+      </div>
+      <div class="tab-item">
+        <router-link to="/seller">商家</router-link>
+      </div>
+    </div>
     <router-view/>
   </div>
 </template>
 
 <script>
+
+    import Header from '@/components/header/Header';
     export default {
-        name: 'App'
+        name: 'App',
+        components: {
+            Header
+        }
     };
 </script>
 
-<style>
+<style scoped lang='less'>
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  .tab{
+    display: flex;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    .tab-item{
+      flex: 1;
+      text-align: center;
+      a{
+        display: block;
+        font-size: 14px;
+        color: rgb(77, 85, 93);
+      }
+      .router-link-active{
+        color: rgb(240, 20, 20)
+      }
+    }
+  }
 }
 </style>
