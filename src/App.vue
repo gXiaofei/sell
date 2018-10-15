@@ -29,7 +29,7 @@
     export default {
         name: 'App',
         components: {
-            Header
+            Header: Header
         }
     };
 </script>
@@ -41,6 +41,22 @@
     width: 100%;
     height: 40px;
     line-height: 40px;
+    // 移动端处理1px border
+    position: relative;
+    border:none;
+    &:after{
+      content: '';
+      position: absolute;
+      bottom: 0;
+      background: #000;
+      width: 100%;
+      height: 1px;
+      -webkit-transform: scaleY(0.5);
+      transform: scaleY(0.5);
+      -webkit-transform-origin: 0 0;
+      transform-origin: 0 0;
+    }
+
     .tab-item{
       flex: 1;
       text-align: center;
