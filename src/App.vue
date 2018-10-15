@@ -2,13 +2,13 @@
  * @Author: gXiaofei
  * @Date: 2018-10-12 23:23:07
  * @Last Modified by: gXiaofei
- * @Last Modified time: 2018-10-13 16:11:54
+ * @Last Modified time: 2018-10-15 13:20:38
  */
 
 <template>
   <div id="app">
-    <Header/>
-    <div class="tab">
+    <v-header :seller-data="sellerData"/>
+    <div class="tab border-1px">
       <div class="tab-item">
         <router-link to="/goods">商品</router-link>
       </div>
@@ -25,30 +25,44 @@
 
 <script>
 
-    import Header from '@/components/header/Header';
+    import header from '@/components/header/Header';
     export default {
         name: 'App',
         components: {
-            Header: Header
+            vHeader: header
+        },
+        data () {
+            return {
+                sellerData: {}
+            };
+        },
+        created () {
+            /* 获取头部信息 */
+            this.getSeller();
+        },
+        methods: {
+            getSeller () {
+                this.$axios.get('/seller').then(res => {
+                    if (res.data.errno === 0) {
+                        this.sellerData = res.data.data;
+                    }
+                });
+            }
         }
     };
 </script>
 
 <style scoped lang='less'>
 #app {
-  .tab{
-    display: flex;
-    width: 100%;
-    height: 40px;
-    line-height: 40px;
-    // 移动端处理1px border
+  .border-1px{
+ // 移动端处理1px border
     position: relative;
     border:none;
-    &:after{
+     &:after{
       content: '';
       position: absolute;
       bottom: 0;
-      background: #000;
+      background: rgba(7, 17, 27, 0.1);
       width: 100%;
       height: 1px;
       -webkit-transform: scaleY(0.5);
@@ -56,7 +70,12 @@
       -webkit-transform-origin: 0 0;
       transform-origin: 0 0;
     }
-
+  }
+  .tab{
+    display: flex;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
     .tab-item{
       flex: 1;
       text-align: center;
