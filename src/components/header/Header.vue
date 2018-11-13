@@ -2,7 +2,7 @@
  * @Author: gXiaofei
  * @Date: 2018-10-13 14:11:02
  * @Last Modified by: gXiaofei
- * @Last Modified time: 2018-11-13 11:04:16
+ * @Last Modified time: 2018-11-13 15:17:32
  */
 <template>
   <div class="header">
@@ -33,17 +33,32 @@
       </div>
       <div
         v-if="seller.supports"
-        class="support-count">
+        class="support-count"
+        @click="detailShow = true">
         <span class="count">{{ seller.supports.length }}个</span>
         <i class="icon-keyboard_arrow_right"/>
       </div>
     </div>
-    <div class="bulletin-wrapper">
+    <div
+      class="bulletin-wrapper"
+      @click="detailShow = true">
       <span class="bulletin-title"/><span class="bulletin-text">{{ seller.bulletin }}</span>
       <i class="icon-keyboard_arrow_right"/>
     </div>
     <div class="background">
       <img :src="seller.avatar" >
+    </div>
+    <div
+      v-show="detailShow"
+      class="detail"
+      @click="detailShow = false">
+      <div class="detail-wrapper clearfix">
+        <div class="detail-main">
+          <p>{{ seller.bulletin }}</p>
+          <p>{{ seller.bulletin }}</p>
+        </div>
+      </div>
+      <div class="detail-close"><i class="icon-close"/></div>
     </div>
   </div>
 </template>
@@ -61,7 +76,8 @@
         data () {
             return {
                 seller: {},
-                classMap: []
+                classMap: [],
+                detailShow: false
             };
         },
         watch: {
@@ -72,6 +88,8 @@
         },
         created () {
             this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
+        },
+        methods: {
         }
     };
 </script>
@@ -215,6 +233,32 @@
       img{
         width: 100%;
         filter: blur(10px);
+      }
+    }
+    .detail{
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 100;
+      background: rgba(7,17,27,0.8);
+      overflow: auto;
+      .detail-wrapper{
+        min-height: 100%;
+        .detail-main{
+          margin-top: 64px;
+          padding-bottom: 64px;
+        }
+      }
+      .detail-close{
+        position: relative;
+        width: 32px;
+        height: 32px;
+        margin: -64px auto 0 auto;
+        font-size: 32px;
+        color: rgba(255,255,255,0.5);
+        clear: both;
       }
     }
   }
