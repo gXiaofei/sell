@@ -2,7 +2,7 @@
  * @Author: gXiaofei
  * @Date: 2018-10-13 14:11:02
  * @Last Modified by: gXiaofei
- * @Last Modified time: 2018-10-15 16:57:43
+ * @Last Modified time: 2018-11-13 11:04:16
  */
 <template>
   <div class="header">
@@ -38,7 +38,13 @@
         <i class="icon-keyboard_arrow_right"/>
       </div>
     </div>
-    <div class="bulletin-wrapper">1</div>
+    <div class="bulletin-wrapper">
+      <span class="bulletin-title"/><span class="bulletin-text">{{ seller.bulletin }}</span>
+      <i class="icon-keyboard_arrow_right"/>
+    </div>
+    <div class="background">
+      <img :src="seller.avatar" >
+    </div>
   </div>
 </template>
 
@@ -61,6 +67,7 @@
         watch: {
             sellerData: function (val) {
                 this.seller = JSON.parse(JSON.stringify(val.seller));
+                console.log(this.seller);
             }
         },
         created () {
@@ -72,7 +79,9 @@
 <style scoped lang='less'>
   .header{
     color: #fff;
-    background: #999;
+    position: relative;
+    overflow: hidden;
+    background: rgba(7,17,27,0.5);
     .content-wrapper{
       padding: 24px 12px 18px 24px;
       font-size: 0;
@@ -162,6 +171,50 @@
           line-height: 24px;
           font-size: 10px;
         }
+      }
+
+    }
+    .bulletin-wrapper{
+      position: relative;
+      height: 28px;
+      line-height: 28px;
+      padding: 0 24px 0 12px;
+      background: rgba(7,17,27,0.2);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      .bulletin-title{
+        display: inline-block;
+        vertical-align: top;
+        width: 22px;
+        height: 12px;
+        background: url(./bulletin@2x.png) no-repeat;
+        background-size: 22px 12px;
+        margin-top: 8px;
+      }
+      .bulletin-text{
+        vertical-align: top;
+        font-size: 10px;
+        font-weight: 200;
+        line-height: 28px;
+        margin-left: 4px;
+      }
+      .icon-keyboard_arrow_right{
+        position: absolute;
+        right: 8px;
+        line-height: 28px;
+      }
+    }
+    .background{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      img{
+        width: 100%;
+        filter: blur(10px);
       }
     }
   }
